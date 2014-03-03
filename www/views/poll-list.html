@@ -1,0 +1,46 @@
+
+<div class="page-header">
+    <h1>Poll List</h1>
+</div>
+<div class="row">
+    <div ng-if="isMobile === 'true'">
+        <div class="col-xs-5">
+            <input type="text" class="form-control" ng-model="query" placeholder="Search for a poll">
+        </div>
+    </div>
+    <div ng-if="isMobile === 'false'">
+        <div class="col-xs-5">
+            <!-- We are taking the button out for phone (in this case small devices.) -->
+            <a href="#/new" class="btn btn-default hidden-sm"><span class="glyphicon glyphicon-plus"></span> New
+                Poll</a>
+        </div>
+        <div class="col-xs-7">
+            <input type="text" class="form-control" ng-model="query" placeholder="Search for a poll">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <hr>
+    </div>
+</div>
+<div class="row" ng-switch on="polls.length">
+    <ul ng-switch-when="0">
+        <li><em>No polls in databases. Would you like to <a href="#/new">create one</a>?</li>
+    </ul>
+    <ul class="list-group" ng-switch-default>
+        <li class="list-group-item" ng-repeat="poll in polls | blankquestionfilter | filter:query">
+            <table width="100%">
+                <tr>
+                    <td width="90%">
+                    <a class="" href="#/poll/{{poll._id.$oid}}">{{poll.question}}</a>
+                    </td>
+                    <td>
+                    <a href="#/delete/{{poll._id.$oid}}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-minus"></span></a>
+                    </td>
+                </tr>
+            </table>
+        </li>
+    </ul>
+</div>
+<p>&nbsp;</p>
